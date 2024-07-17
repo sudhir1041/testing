@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akshita</title>
+  <style>
+    body {
+      margin: 0px;
+      padding: 0px;
+      box-sizing: border-box;
+    }
+
+    .hidden-content {
+      display: none;
+    }
+
+    #open-details {
+      width: 30%;
+      height: 90%;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #f2f1f1;
+      border: 2px solid #0e0e0e;
+      border-radius: 10px;
+      z-index: 10;
+    }
+    .pot-img{
+      width: 100%;
+      height: 50%;
+      overflow: hidden;
+    }
+    .pot-img img{
+      overflow: hidden;
+    }
+    .pot-size{
+      width: 100%;
+      height: 40%;
+      display: flex;
+      justify-content: space-around;
+    }
+    .pot-size-name{
+      list-style: none;
+      line-height: 1.5;
+    }
+    .pot-size-name h4{
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .pot-size-inches{
+      list-style: none;
+      line-height: 1.5;
+    }
+    .pot-size-inches h4{
+      font-size: 20px;
+      font-weight: 800;
+    }
+    #open-details button {
+      background-color: #007bff;
+      color: #fff;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #closeBtn {
+      margin-left: 45%;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>Pot Size <button id="openBtn">?</button></h3>
+  <div id="open-details" class="hidden-content">
+    <div class="pot-img">
+      <img src="potsize-banner.jpg" width="100%" height="100%" alt="pot Image">
+    </div>
+    <div class="pot-size">
+      <ul class="pot-size-name">
+        <h4>Size</h4>
+        <li>Grow Pot</li>
+        <li>Medium</li>
+        <li>Large</li>
+        <li>Extra Lage</li>
+      </ul>
+      <ul class="pot-size-inches">
+        <h4>Pot Width</h4>
+        <li>3 - 3.5 inches</li>
+        <li>4 - 6 inches</li>
+        <li>8 - 10 inches</li>
+        <li>12 - 14 inches</li>
+      </ul>
+    </div>
+    <button id="closeBtn">close</button>
+  </div>
+
+  <script>
+    const openBtn = document.getElementById('openBtn');
+    const openDetails = document.getElementById('open-details');
+    const closeBtn = document.getElementById('closeBtn');
+
+    function openPot() {
+      openDetails.classList.remove('hidden-content');
+    }
+    function closePot() {
+      openDetails.classList.add('hidden-content');
+    }
+
+    openBtn.addEventListener('click', openPot);
+    closeBtn.addEventListener('click', closePot);
+  </script>
+</body>
+
+</html>

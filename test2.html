@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Bar</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Rubik', sans-serif;
+            font-size: 20px;
+            height: 100vh;
+            background-color: rgb(250, 247, 243);
+            color: rgba(69, 82, 82, 0.842);
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        .active {
+            border: 2px solid rgba(90, 228, 171, 0.76);
+            box-shadow: 0px 0px 32px rgba(69, 82, 82, 0.404);
+        }
+
+        .container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .circle-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .circle {
+            position: relative;
+            background-color: rgb(69, 173, 142);
+            color: white;
+            border-radius: 64px;
+            height: 30px;
+            width: 30px;
+            z-index: 1;
+            border: 2px solid green;
+            margin-right: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .circle1 {
+            background-color: red;
+        }
+
+        .circle2 {
+            background-color: blue;
+        }
+
+        .circle3 {
+            background-color: yellow;
+        }
+
+        .progress-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: inline-block;
+        }
+
+        .progress-container::before {
+            content: "";
+            position: absolute;
+            background-color: rgba(16, 196, 61, 0.479);
+            top: 0;
+            left: 15%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 80%;
+            z-index: 0;
+        }
+
+        .progress {
+            position: absolute;
+            background-color: rgb(173, 76, 69);
+            top: 0;
+            left: 15%;
+            transform: translate(-50%, 0);
+            height: 80%;
+            width: 8px;
+            z-index: 0;
+        }
+
+        .circle-label {
+            color: green;
+            /* Text color outside circles */
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Progress Bar</h1>
+    </header>
+
+    <div class="container">
+        <div class="progress-container">
+            <div class="progress" id="progress"></div>
+            <div class="circle-container">
+                <div class="circle active"></div>
+                <span class="circle-label">Green</span>
+            </div>
+            <div class="circle-container">
+                <div class="circle circle1"></div>
+                <span class="circle-label">Red</span>
+            </div>
+            <div class="circle-container">
+                <div class="circle circle2"></div>
+                <span class="circle-label">Blue</span>
+            </div>
+            <div class="circle-container">
+                <div class="circle circle3"></div>
+                <span class="circle-label">Yellow</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

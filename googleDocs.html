@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export WooCommerce Orders to Google Sheets</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+            background: #fff;
+        }
+
+        h1,
+        h2 {
+            color: #333;
+        }
+
+        code {
+            background: #eee;
+            padding: 2px 5px;
+        }
+
+        pre {
+            background: #eee;
+            padding: 10px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Step-by-step Guide on How to Export WooCommerce Orders to Google Sheet</h1>
+
+        <h2>Step 1: Creating the Google Sheet</h2>
+        <ol>
+            <li>Open <a href="https://sheets.google.com">Google Sheets</a> and create a new spreadsheet.</li>
+            <li>Rename the sheet to "WooCommerce Orders" or any name of your choice.</li>
+            <li>Set up the columns to match the order data you want to capture. For example:
+                <ul>
+                    <li>A: Order ID</li>
+                    <li>B: Customer Name</li>
+                    <li>C: Product Names</li>
+                    <li>D: Quantities</li>
+                    <li>E: Prices</li>
+                    <li>F: Date Created</li>
+                    <li>G: Payment Method</li>
+                    <li>H: Shipping Address</li>
+                    <li>I: Order Status</li>
+                </ul>
+            </li>
+        </ol>
+
+        <h2>Step 2: Writing the Google Apps Script</h2>
+        <ol>
+            <li>In the Google Sheet, go to <code>Extensions</code> > <code>Apps Script</code>.</li>
+            <li>Delete any code in the script editor and replace it with the following script:</li>
+        </ol>
+        <pre><code>
+function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = JSON.parse(e.postData.contents);
+  
+  var order = [
+    data.id,
+    data.billing.first_name + ' ' + data.billing.last_name,
+    data.line_items.map(item => item.name).join(", "),
+    data.line_items.map(item => item.quantity).join(", "),
+    data.line_items.map(item => item.price).join(", "),
+    data.date_created,
+    data.payment_method,
+    data.shipping.address_1 + ', ' + data.shipping.city + ', ' + data.shipping.state + ' ' + data.shipping.postcode,
+    data.status
+  ];
+  
+  sheet.appendRow(order);
+  
+  return ContentService.createTextOutput(JSON.stringify({"status": "success"})).setMimeType(ContentService.MimeType.JSON);
+}
+        </code></pre>
+        <ol start="3">
+            <li>Save the script with a name like "WooCommerce Integration".</li>
+        </ol>
+
+        <h2>Step 3: Deploying the Script as a Web App</h2>
+        <ol>
+            <li>Click on <code>Deploy</code> > <code>New deployment</code>.</li>
+            <li>Select <code>Web app</code>.</li>
+            <li>Enter the description, for example, "WooCommerce Orders Web App".</li>
+            <li>Set <code>Execute as</code> to <code>Me</code> and <code>Who has access</code> to <code>Anyone</code>.
+            </li>
+            <li>Click <code>Deploy</code>.</li>
+            <li>Authorize the app if prompted and note the Web App URL provided after deployment.</li>
+        </ol>
+
+        <h2>Step 4: Creating the WooCommerce Webhook</h2>
+        <ol>
+            <li>Go to your WooCommerce dashboard.</li>
+            <li>Navigate to <code>Settings</code> > <code>Advanced</code> > <code>Webhooks</code>.</li>
+            <li>Click <code>Add Webhook</code>.</li>
+            <li>Set the Name, for example, "Google Sheets Integration".</li>
+            <li>Set the Status to <code>Active</code>.</li>
+            <li>Choose <code>Order Created</code> or the appropriate event for the Trigger.</li>
+            <li>Set the Delivery URL to the Web App URL you obtained from the Google Apps Script deployment.</li>
+            <li>Choose <code>JSON</code> as the Secret and API Version as <code>WP REST API Integration v3</code>.</li>
+            <li>Save the webhook.</li>
+        </ol>
+
+        <h2>Step 5: Time for Some Action</h2>
+        <ol>
+            <li>Create a test order in your WooCommerce store.</li>
+            <li>Check your Google Sheet to verify that the order data has been successfully added.</li>
+        </ol>
+
+        <h2>Order Metadata</h2>
+        <p>To capture additional order metadata, ensure your Google Apps Script and the Google Sheet columns align with
+            the data you want to capture. The provided script includes fields for payment method, shipping address, and
+            order status, but you can add more as needed by modifying the <code>order</code> array in the script.</p>
+    </div>
+</body>
+
+</html>

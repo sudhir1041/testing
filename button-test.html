@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex Buttons</title>
+    <link rel="stylesheet" href="button.css">
+</head>
+<style>
+
+.two-button {
+    display: flex;
+    gap: 30px; 
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-two-button {
+    width: 150px;
+    padding: 20px 35px;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    background-color:  #00ab84;
+    transition: background-color 0.3s;
+}
+
+.flex-two-button:hover {
+    color: black;
+    background-color: #f0f0f0;
+}
+</style>
+
+<body>
+    <div class="two-button">
+        <button class="flex-two-button">Indoor</button>
+        <button class="flex-two-button">Outdoor</button>
+    </div>
+</body>
+
+</html>
